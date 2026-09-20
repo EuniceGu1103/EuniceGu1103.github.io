@@ -1,0 +1,600 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Yunrong "Eunice" Gu 顾芸榕</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,400;9..144,0,500;9..144,0,600;9..144,1,400;9..144,1,500&family=Inter:wght@400;500;600&family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- 汇文明朝体 Huiwen Mincho — served via chinese-fonts CDN -->
+<link rel="stylesheet" href="https://chinese-fonts-cdn.deno.dev/packages/hwmct/dist/汇文明朝体/result.css">
+
+<style>
+/* ============================================================
+   1. Design tokens — change the whole vibe from here
+   ============================================================ */
+:root{
+  --paper:   #F3EFE6;
+  --paper-2: #EAE4D7;
+  --ink:     #23201B;
+  --ink-soft:#6B655B;
+  --line:    #D8D1C2;
+  --accent:  #A6572E;   /* earthy sienna */
+  --accent-2:#8A9A7B;   /* muted sage, for labels */
+  --glow:    rgba(166,87,46,.10);
+
+  --serif:"Fraunces", Georgia, serif;
+  --sans:"Inter", system-ui, -apple-system, "PingFang SC", sans-serif;
+  --cn:"Huiwen-mincho","Noto Serif SC","Songti SC","SimSun",serif;
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --maxw:1080px;
+}
+*{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; }
+body{ font-family:var(--sans); background:var(--paper); color:var(--ink);
+  line-height:1.6; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+a{ color:inherit; text-decoration:none; }
+img{ display:block; max-width:100%; }
+.wrap{ max-width:var(--maxw); margin:0 auto; padding:0 28px; }
+
+/* all Chinese text uses 汇文明朝体 */
+.zh, .cn, [lang="zh"]{ font-family:var(--cn); }
+
+.eyebrow{ font-size:12px; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--accent-2); font-weight:600; margin-bottom:18px;
+  display:inline-flex; align-items:baseline; gap:10px; }
+.eyebrow::before{ content:""; width:26px; height:1px; background:var(--accent-2); align-self:center; }
+.eyebrow .zh{ font-size:13px; letter-spacing:.3em; color:var(--accent); font-weight:400; }
+
+h1,h2,h3{ font-family:var(--serif); font-weight:500; line-height:1.08; letter-spacing:-.01em; }
+.section-title{ font-size:clamp(30px,5vw,52px); margin-bottom:34px; }
+.section-title .zh{ display:block; font-size:.42em; color:var(--ink-soft);
+  letter-spacing:.22em; margin-top:10px; font-weight:400; }
+
+/* 2. (cursor glow removed) */
+
+/* 2b. cursor-following hover preview (the "peek") */
+#peek{ position:fixed; z-index:50; width:230px; aspect-ratio:4/3; pointer-events:none;
+  border-radius:14px; overflow:hidden; box-shadow:0 30px 60px -18px rgba(35,32,27,.45);
+  opacity:0; transform:scale(.85) rotate(-2deg); transition:opacity .35s var(--ease), transform .45s var(--ease);
+  will-change:left,top; left:-500px; top:-500px; }
+#peek.on{ opacity:1; transform:scale(1) rotate(-2deg); }
+#peek img{ width:100%; height:100%; object-fit:cover; }
+#peek .cap{ position:absolute; left:0; right:0; bottom:0; padding:10px 12px 8px; color:#fff;
+  font-family:var(--cn); font-size:13px; letter-spacing:.14em;
+  background:linear-gradient(transparent, rgba(20,17,13,.72)); }
+@media (hover:none){ #peek{ display:none; } }
+
+/* 3. nav */
+header{ position:sticky; top:0; z-index:20;
+  backdrop-filter:saturate(160%) blur(12px);
+  background:color-mix(in srgb, var(--paper) 82%, transparent);
+  border-bottom:1px solid var(--line); }
+nav{ display:flex; align-items:center; justify-content:space-between; height:64px; }
+nav .brand{ font-family:var(--serif); font-size:19px; font-weight:600; }
+nav .brand .zh{ font-size:16px; font-weight:400; color:var(--ink-soft); margin-left:6px; }
+nav ul{ display:flex; gap:30px; list-style:none; }
+nav a{ font-size:14px; color:var(--ink-soft); position:relative; transition:color .3s var(--ease); }
+nav a::after{ content:""; position:absolute; left:0; bottom:-5px; width:100%; height:1px;
+  background:var(--accent); transform:scaleX(0); transform-origin:left; transition:transform .35s var(--ease); }
+nav a:hover{ color:var(--ink); }
+nav a:hover::after{ transform:scaleX(1); }
+@media(max-width:700px){ nav ul{ display:none; } }
+
+/* 4. hero — text left, portrait right */
+.hero{ position:relative; z-index:1; padding:110px 0 90px; }
+.hero-grid{ display:grid; grid-template-columns:1.5fr 1fr; gap:60px; align-items:center; }
+.hero .lead{ font-size:14px; color:var(--ink-soft); margin-bottom:26px; letter-spacing:.04em; }
+.hero h1{ font-size:clamp(44px,7vw,84px); letter-spacing:-.03em; }
+.hero h1 em{ font-style:italic; color:var(--accent); font-weight:400; }
+.hero h1 .w{ display:inline-block; opacity:0; transform:translateY(28px); animation:rise .9s var(--ease) forwards; }
+@keyframes rise{ to{ opacity:1; transform:none; } }
+
+/* portrait slot — swap the src in .portrait img with your photo */
+.portrait{ position:relative; opacity:0; animation:rise 1s var(--ease) .5s forwards; }
+.portrait .frame{ position:relative; border-radius:18px; overflow:hidden;
+  aspect-ratio:4/5; background:var(--paper-2); border:1px solid var(--line);
+  box-shadow:0 30px 60px -28px rgba(35,32,27,.38);
+  transition:transform .5s var(--ease), box-shadow .5s var(--ease); }
+.portrait:hover .frame{ transform:translateY(-6px); box-shadow:0 42px 70px -28px rgba(35,32,27,.42); }
+.portrait img{ width:100%; height:100%; object-fit:cover; transition:transform .8s var(--ease); }
+.portrait:hover img{ transform:scale(1.04); }
+/* placeholder look when no photo yet */
+.portrait .placeholder{ position:absolute; inset:0; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:10px; color:var(--ink-soft); text-align:center; padding:20px; }
+.portrait .placeholder .zh{ font-size:15px; letter-spacing:.3em; }
+.portrait .placeholder small{ font-size:12px; letter-spacing:.08em; }
+/* offset outline as a quiet decorative echo */
+.portrait::after{ content:""; position:absolute; inset:14px -14px -14px 14px;
+  border:1px solid var(--line); border-radius:18px; z-index:-1; }
+.portrait .tag{ position:absolute; left:18px; bottom:16px; z-index:2; color:#fff;
+  font-family:var(--cn); font-size:13px; letter-spacing:.22em;
+  text-shadow:0 1px 8px rgba(20,17,13,.6); pointer-events:none; }
+@media(max-width:820px){
+  .hero-grid{ grid-template-columns:1fr; gap:44px; }
+  .portrait{ max-width:340px; }
+}
+.hero .tagline{ font-family:var(--serif); font-style:italic; font-size:clamp(19px,2.6vw,27px);
+  color:var(--ink-soft); margin-top:26px; max-width:640px; opacity:0; animation:rise .9s var(--ease) .6s forwards; }
+.hero .cta-row{ margin-top:40px; display:flex; gap:16px; flex-wrap:wrap; opacity:0; animation:rise .9s var(--ease) .78s forwards; }
+
+.btn{ display:inline-flex; align-items:center; gap:9px; padding:13px 24px; border-radius:100px;
+  font-size:14px; font-weight:500; border:1px solid var(--ink);
+  transition:transform .3s var(--ease), background .3s var(--ease), color .3s var(--ease); cursor:pointer; background:none; }
+.btn.primary{ background:var(--ink); color:var(--paper); }
+.btn.primary:hover{ background:var(--accent); border-color:var(--accent); transform:translateY(-2px); }
+.btn.ghost:hover{ background:var(--ink); color:var(--paper); transform:translateY(-2px); }
+
+/* 5. sections + reveal */
+section{ position:relative; z-index:1; padding:90px 0; }
+.reveal{ opacity:0; transform:translateY(26px); transition:opacity .8s var(--ease), transform .8s var(--ease); }
+.reveal.in{ opacity:1; transform:none; }
+
+.about-grid{ display:grid; grid-template-columns:1.4fr 1fr; gap:56px; align-items:start; }
+.about-grid p{ font-size:17px; color:var(--ink-soft); margin-bottom:18px; }
+.about-grid p strong{ color:var(--ink); font-weight:600; }
+.facts{ border-left:1px solid var(--line); padding-left:26px; }
+.facts dt{ font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent-2); margin-top:20px; }
+.facts dt:first-child{ margin-top:0; }
+.facts dd{ font-size:16px; margin-top:4px; }
+@media(max-width:760px){ .about-grid{ grid-template-columns:1fr; gap:34px; } }
+
+/* 6. research */
+.domains{ display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+.domain{ background:var(--paper-2); border:1px solid var(--line); border-radius:20px; padding:34px 30px;
+  transition:transform .45s var(--ease), box-shadow .45s var(--ease), border-color .45s var(--ease); }
+.domain:hover{ transform:translateY(-8px); box-shadow:0 24px 50px -20px rgba(35,32,27,.32); border-color:transparent; }
+.domain .num{ font-family:var(--serif); font-size:15px; color:var(--accent); }
+.domain h3{ font-size:26px; margin:12px 0 22px; }
+.domain h3 .zh{ font-size:15px; color:var(--ink-soft); margin-left:10px; letter-spacing:.18em; font-weight:400; }
+.sub{ padding-top:18px; border-top:1px solid var(--line); margin-top:18px; }
+.sub:first-of-type{ border-top:none; margin-top:0; padding-top:0; }
+.sub h4{ font-family:var(--sans); font-size:15px; font-weight:600; margin-bottom:6px; }
+.sub p{ font-size:14.5px; color:var(--ink-soft); }
+@media(max-width:760px){ .domains{ grid-template-columns:1fr; } }
+
+/* 6b. publications */
+.pubs{ border-top:1px solid var(--line); }
+.pub{ display:grid; grid-template-columns:86px 1fr auto; gap:26px; align-items:baseline;
+  padding:26px 10px; border-bottom:1px solid var(--line); position:relative;
+  transition:background .4s var(--ease), padding-left .4s var(--ease); border-radius:6px; }
+.pub:hover{ background:var(--paper-2); padding-left:22px; }
+.pub .year{ font-family:var(--serif); font-size:17px; color:var(--accent); }
+.pub h3{ font-size:19px; font-weight:500; line-height:1.35; letter-spacing:0;
+  transition:color .3s var(--ease); }
+.pub:hover h3{ color:var(--accent); }
+.pub .venue{ font-size:13.5px; color:var(--ink-soft); margin-top:5px; }
+.pub .venue i{ font-family:var(--serif); }
+.pub .tags{ display:flex; gap:8px; margin-top:10px; flex-wrap:wrap; }
+.pub .tags span{ font-size:11.5px; letter-spacing:.08em; border:1px solid var(--line);
+  border-radius:100px; padding:4px 11px; color:var(--ink-soft); }
+.pub .links{ display:flex; gap:14px; font-size:13px; }
+.pub .links a{ color:var(--ink-soft); border-bottom:1px solid var(--line); padding-bottom:2px;
+  transition:color .3s var(--ease), border-color .3s var(--ease); }
+.pub .links a:hover{ color:var(--accent); border-color:var(--accent); }
+.pub.soon{ opacity:.55; }
+.pub.soon h3{ font-style:italic; font-family:var(--serif); font-weight:400; }
+@media(max-width:700px){ .pub{ grid-template-columns:1fr; gap:8px; } }
+.pubs-note{ font-size:13.5px; color:var(--ink-soft); margin-top:22px; }
+.pubs-note .zh{ letter-spacing:.06em; }
+
+/* 7. gallery */
+.gallery{ display:grid; grid-template-columns:repeat(3,1fr); grid-auto-rows:240px; gap:14px; }
+.shot{ position:relative; overflow:hidden; border-radius:14px; transform-style:preserve-3d; transition:transform .3s var(--ease); }
+.shot.tall{ grid-row:span 2; }
+.shot img{ width:100%; height:100%; object-fit:cover; transition:transform .8s var(--ease); }
+.shot:hover img{ transform:scale(1.06); }
+.shot figcaption{ position:absolute; left:0; right:0; bottom:0; padding:18px 16px 14px; color:#fff; font-size:13px;
+  background:linear-gradient(transparent, rgba(20,17,13,.72)); opacity:0; transform:translateY(8px); transition:all .45s var(--ease); }
+.shot figcaption b{ font-family:var(--serif); font-weight:500; font-size:15px; display:block; }
+.shot figcaption .zh{ font-size:12px; letter-spacing:.2em; opacity:.85; }
+.shot:hover figcaption{ opacity:1; transform:none; }
+@media(max-width:760px){ .gallery{ grid-template-columns:1fr 1fr; grid-auto-rows:180px; } }
+
+/* 8. interests — buttons with cursor-follow preview + overlay subpage */
+.interests-grid{ display:grid; grid-template-columns:repeat(5,1fr); gap:14px; }
+.int-btn{ text-align:left; background:var(--paper-2); border:1px solid var(--line); border-radius:16px;
+  padding:26px 20px; cursor:pointer; font-family:inherit; color:inherit;
+  transition:transform .4s var(--ease), box-shadow .4s var(--ease), border-color .4s var(--ease); }
+.int-btn:hover{ transform:translateY(-8px); box-shadow:0 22px 44px -20px rgba(35,32,27,.3); border-color:transparent; }
+.int-btn .idx{ font-family:var(--serif); font-size:13px; color:var(--accent-2); }
+.int-btn h3{ font-size:19px; margin:12px 0 2px; }
+.int-btn .zh{ display:block; font-family:var(--cn); font-size:13px; color:var(--ink-soft);
+  letter-spacing:.24em; margin-bottom:8px; }
+.int-btn .go{ font-size:12px; color:var(--accent); opacity:0; transform:translateX(-6px); transition:all .4s var(--ease); }
+.int-btn:hover .go{ opacity:1; transform:none; }
+@media(max-width:900px){ .interests-grid{ grid-template-columns:1fr 1fr 1fr; } }
+@media(max-width:560px){ .interests-grid{ grid-template-columns:1fr 1fr; } }
+
+/* 9. subpage overlay */
+.overlay{ position:fixed; inset:0; z-index:60; background:var(--paper);
+  opacity:0; visibility:hidden; transform:translateY(24px);
+  transition:opacity .5s var(--ease), transform .5s var(--ease), visibility .5s; overflow-y:auto; }
+.overlay.open{ opacity:1; visibility:visible; transform:none; }
+.overlay .inner{ max-width:760px; margin:0 auto; padding:90px 28px 80px; }
+.back{ display:inline-flex; align-items:center; gap:8px; font-size:14px; color:var(--ink-soft);
+  border:1px solid var(--line); padding:9px 18px; border-radius:100px; cursor:pointer; background:none; font-family:inherit;
+  transition:all .3s var(--ease); margin-bottom:44px; }
+.back:hover{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
+.overlay h2{ font-size:clamp(38px,7vw,64px); margin:14px 0 6px; }
+.overlay .h2zh{ font-family:var(--cn); color:var(--ink-soft); letter-spacing:.3em; margin-bottom:26px; }
+.overlay .body{ font-size:18px; color:var(--ink-soft); }
+.overlay .body p{ margin-bottom:18px; }
+.overlay .body strong{ color:var(--ink); font-weight:600; }
+.overlay .meta{ display:flex; flex-wrap:wrap; gap:10px; margin-top:32px; }
+.overlay .meta span{ font-size:13px; border:1px solid var(--line); border-radius:100px; padding:8px 16px; }
+.overlay .photostrip{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-top:40px; }
+.overlay .photostrip img{ width:100%; height:170px; object-fit:cover; border-radius:12px;
+  transition:transform .6s var(--ease); }
+.overlay .photostrip img:hover{ transform:scale(1.04); }
+@media(max-width:560px){ .overlay .photostrip{ grid-template-columns:1fr; } .overlay .photostrip img{ height:220px; } }
+
+#int-data{ display:none; }
+
+/* 12. contact / footer */
+.contact{ text-align:center; }
+.contact h2{ font-size:clamp(34px,6vw,60px); margin-bottom:22px; }
+.contact .links{ display:flex; justify-content:center; gap:14px; flex-wrap:wrap; margin-top:14px; }
+footer{ border-top:1px solid var(--line); padding:34px 0; text-align:center; color:var(--ink-soft); font-size:13px; }
+
+@media (prefers-reduced-motion:reduce){
+  *{ animation:none !important; transition:none !important; scroll-behavior:auto; }
+  .reveal{ opacity:1; transform:none; }
+  .hero h1 .w,.hero .tagline,.hero .cta-row,.portrait{ opacity:1; transform:none; }
+  #peek{ display:none; }
+}
+:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; border-radius:4px; }
+</style>
+</head>
+
+<body>
+<!-- cursor-following hover preview -->
+<div id="peek" aria-hidden="true"><img alt=""><span class="cap"></span></div>
+
+<header>
+  <nav class="wrap">
+    <span class="brand">Eunice Gu<span class="zh">顾芸榕</span></span>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#photos">Photography</a></li>
+      <li><a href="#interests">Interests</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- ================= Hero ================= -->
+<div class="hero wrap">
+  <div class="hero-grid">
+    <div>
+      <p class="lead">Duke Kunshan University × Duke University · Class of 2027</p>
+      <h1>
+        <span class="w" style="animation-delay:.05s">Yunrong</span>
+        <em class="w" style="animation-delay:.18s">"Eunice"</em>
+        <span class="w" style="animation-delay:.3s">Gu</span>
+      </h1>
+      <p class="tagline">A mathematics undergraduate studying how a changing climate reshapes weather and human health — and photographing the light in between.</p>
+      <div class="cta-row">
+        <a class="btn primary" href="https://www.linkedin.com/in/yunrong-gu" target="_blank" rel="noopener">Connect on LinkedIn →</a>
+        <a class="btn ghost" href="#publications">Publications</a>
+      </div>
+    </div>
+
+    <!-- Portrait -->
+    <div class="portrait">
+      <div class="frame">
+        <img src="portrait.jpg" alt="Portrait of Yunrong Eunice Gu">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= About ================= -->
+<section id="about">
+  <div class="wrap reveal">
+    <span class="eyebrow">About <span class="zh">关于</span></span>
+    <div class="about-grid">
+      <div>
+        <p>I'm <strong>Eunice</strong>, an undergraduate at Duke Kunshan University and Duke University (Class of 2027), majoring in <strong>Applied Mathematics and Computational Science</strong> on the mathematics track.</p>
+        <p>I work at the intersection of climate and health — using statistics and machine learning to understand how extreme weather affects people, especially children. When I'm not with data, I'm usually behind a camera; I served as <strong>Vice President of Pixel Poets</strong>, my university's photography club.</p>
+        <p>I like problems that sit between disciplines: rigorous enough to model, human enough to matter.</p>
+      </div>
+      <dl class="facts">
+        <dt>Now</dt><dd>DKU × Duke · Class of 2027</dd>
+        <dt>Major</dt><dd>Applied Mathematics (Math track)</dd>
+        <dt>Focus</dt><dd>Climate Science · Public Health</dd>
+        <dt>Based</dt><dd>Kunshan, China · Durham, NC</dd>
+        <dt>Languages</dt><dd>English · Mandarin · Spanish</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- ================= Research ================= -->
+<section id="research">
+  <div class="wrap reveal">
+    <span class="eyebrow">Research <span class="zh">研究</span></span>
+    <h2 class="section-title">Two questions I keep returning to</h2>
+    <div class="domains">
+      <article class="domain">
+        <span class="num">01</span>
+        <h3>Climate Science<span class="zh">气候科学</span></h3>
+        <div class="sub">
+          <h4>Climate modeling</h4>
+          <p>Exploring the underlying principles and applied logic of numerical weather prediction (NWP) and climate-projection models — including work on Southern Hemisphere jet variability and eddy–mean flow interactions using ERA5 reanalysis.</p>
+        </div>
+        <div class="sub">
+          <h4>Extreme weather events</h4>
+          <p>Analyzing how extreme weather events form, evolve, and compound — and what those dynamics mean for the systems and communities in their path.</p>
+        </div>
+      </article>
+      <article class="domain">
+        <span class="num">02</span>
+        <h3>Public Health<span class="zh">公共卫生</span></h3>
+        <div class="sub">
+          <h4>Climate &amp; health</h4>
+          <p>Investigating the health risks of climate variability in low- and middle-income countries, with a focus on the uneven burden it places on children — particularly respiratory and diarrheal disease.</p>
+        </div>
+        <div class="sub">
+          <h4>Data-driven decisions</h4>
+          <p>Combining statistical modeling and machine learning across large-scale datasets (DHS surveys, ERA5) to surface nonlinear climate–disease relationships that inform real decisions.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= Publications (reserved) ================= -->
+<section id="publications">
+  <div class="wrap reveal">
+    <span class="eyebrow">Publications <span class="zh">论文</span></span>
+    <h2 class="section-title">Selected work<span class="zh">部分研究成果</span></h2>
+
+    <!-- To add a paper: copy one .pub block, fill in year/title/venue/tags/links.
+         data-img (optional) = thumbnail for the cursor-follow preview. -->
+    <div class="pubs">
+      <article class="pub" data-img="https://picsum.photos/seed/pub1/460/340" data-cap="Working paper · 2026">
+        <span class="year">2026</span>
+        <div>
+          <h3>Eddy–mean flow interactions and Southern Hemisphere jet variability in ERA5 reanalysis</h3>
+          <p class="venue">Working paper · <i>Climate Dynamics group, Duke Kunshan University</i></p>
+          <div class="tags"><span>ERA5</span><span>Jet variability</span><span>Atmospheric dynamics</span></div>
+        </div>
+        <div class="links"><a href="#" target="_blank" rel="noopener">PDF</a><a href="#" target="_blank" rel="noopener">Poster</a></div>
+      </article>
+
+      <article class="pub" data-img="https://picsum.photos/seed/pub2/460/340" data-cap="In preparation · 2026">
+        <span class="year">2026</span>
+        <div>
+          <h3>Nonlinear climate–disease relationships in children across low- and middle-income countries</h3>
+          <p class="venue">In preparation · <i>DHS × ERA5 statistical modeling</i></p>
+          <div class="tags"><span>Machine learning</span><span>Child health</span><span>DHS surveys</span></div>
+        </div>
+        <div class="links"><a href="#" target="_blank" rel="noopener">Abstract</a></div>
+      </article>
+
+      <article class="pub soon">
+        <span class="year">Soon</span>
+        <div>
+          <h3>More on the way — this shelf is reserved.</h3>
+          <p class="venue zh">虚位以待</p>
+        </div>
+        <div class="links"></div>
+      </article>
+    </div>
+    <p class="pubs-note">Full list available on request · <span class="zh">完整列表可来信索取</span></p>
+  </div>
+</section>
+
+<!-- ================= Photography ================= -->
+<section id="photos">
+  <div class="wrap reveal">
+    <span class="eyebrow">Photography <span class="zh">摄影</span></span>
+    <h2 class="section-title">Collecting light<span class="zh">拾光</span></h2>
+    <!-- Replace src with your own photos. Add class="tall" to span two rows -->
+    <div class="gallery">
+      <figure class="shot tall"><img src="https://picsum.photos/seed/e1/700/900" alt="Photo"><figcaption><b>Morning fog</b><span class="zh">昆山 · 2024</span></figcaption></figure>
+      <figure class="shot"><img src="https://picsum.photos/seed/e2/700/500" alt="Photo"><figcaption><b>Corner light</b><span class="zh">Durham · 2025</span></figcaption></figure>
+      <figure class="shot"><img src="https://picsum.photos/seed/e3/700/500" alt="Photo"><figcaption><b>Untitled</b><span class="zh">上海 · 2024</span></figcaption></figure>
+      <figure class="shot"><img src="https://picsum.photos/seed/e4/700/500" alt="Photo"><figcaption><b>Coastline</b><span class="zh">青岛 · 2023</span></figcaption></figure>
+      <figure class="shot tall"><img src="https://picsum.photos/seed/e5/700/900" alt="Photo"><figcaption><b>Rain</b><span class="zh">苏州 · 2024</span></figcaption></figure>
+      <figure class="shot"><img src="https://picsum.photos/seed/e6/700/500" alt="Photo"><figcaption><b>On film</b><span class="zh">胶片 · 2023</span></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= Interests (hover to preview, click to open subpage) ================= -->
+<section id="interests">
+  <div class="wrap reveal">
+    <span class="eyebrow">Beyond work <span class="zh">工作之外</span></span>
+    <h2 class="section-title">Things that keep me curious</h2>
+    <div class="interests-grid">
+      <button class="int-btn" data-key="photography" data-img="https://picsum.photos/seed/p1/460/340" data-cap="摄影"><span class="idx">01</span><h3>Photography</h3><span class="zh">摄影</span><span class="go">Open →</span></button>
+      <button class="int-btn" data-key="hiking" data-img="https://picsum.photos/seed/h1/460/340" data-cap="徒步"><span class="idx">02</span><h3>Hiking</h3><span class="zh">徒步</span><span class="go">Open →</span></button>
+      <button class="int-btn" data-key="f1" data-img="https://picsum.photos/seed/f1a/460/340" data-cap="赛车"><span class="idx">03</span><h3>F1 Racing</h3><span class="zh">赛车</span><span class="go">Open →</span></button>
+      <button class="int-btn" data-key="travel" data-img="https://picsum.photos/seed/t1/460/340" data-cap="旅行"><span class="idx">04</span><h3>Travel</h3><span class="zh">旅行</span><span class="go">Open →</span></button>
+      <button class="int-btn" data-key="food" data-img="https://picsum.photos/seed/fd1/460/340" data-cap="寻味"><span class="idx">05</span><h3>Food</h3><span class="zh">寻味</span><span class="go">Open →</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= Contact ================= -->
+<section id="contact">
+  <div class="wrap reveal contact">
+    <span class="eyebrow" style="justify-content:center">Contact <span class="zh">联系</span></span>
+    <h2>Let's talk</h2>
+    <p style="color:var(--ink-soft);max-width:520px;margin:0 auto;">Research, collaboration, or just photography — I'd love to hear from you.</p>
+    <div class="links">
+      <a class="btn primary" href="https://www.linkedin.com/in/yunrong-gu" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn ghost" href="mailto:yunrong.gu@duke.edu">Academic email</a>
+      <a class="btn ghost" href="mailto:eunicegu1103@gmail.com">Personal email</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">© 2026 Yunrong "Eunice" Gu · <span class="zh">顾芸榕</span></div>
+</footer>
+
+<!-- ================= Interest subpage overlay ================= -->
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="inner">
+    <button class="back" id="backBtn">← Back</button>
+    <span class="eyebrow" id="ov-eyebrow">Interest</span>
+    <h2 id="ov-title"></h2>
+    <div class="h2zh" id="ov-zh"></div>
+    <div class="body" id="ov-body"></div>
+  </div>
+</div>
+
+<!-- ============================================================
+     Interest content store — edit copy & photos here.
+     Each block: title, index label, Chinese label, HTML body, photos.
+     ============================================================ -->
+<div id="int-data">
+  <template data-key="photography" data-idx="Interest 01" data-title="Photography" data-zh="摄影">
+    <p>Where I learned to pay attention. As <strong>Vice President of Pixel Poets</strong>, my university's photography club, I organized workshops and exhibitions and helped build a small community around looking closely.</p>
+    <p>I mostly shoot <strong>street and film</strong>. I'm drawn to the frames where light does something the eye almost missed — a reflection, a shadow at the wrong angle, a stranger caught mid-thought.</p>
+    <div class="meta"><span>Street</span><span>Film</span><span>Workshops &amp; exhibitions</span></div>
+    <div class="photostrip">
+      <img src="https://picsum.photos/seed/p1/400/300" alt="">
+      <img src="https://picsum.photos/seed/p2/400/300" alt="">
+      <img src="https://picsum.photos/seed/p3/400/300" alt="">
+    </div>
+  </template>
+
+  <template data-key="hiking" data-idx="Interest 02" data-title="Outdoor Hiking" data-zh="徒步">
+    <p>Trading equations for elevation. Long trails are how I reset — the landscapes I study as climate data feel very different under my own feet.</p>
+    <p>There's something clarifying about a full day of walking: no notifications, one direction, and weather you experience instead of model.</p>
+    <div class="meta"><span>Day hikes</span><span>Trail running</span><span>Mountains &gt; cities</span></div>
+    <div class="photostrip">
+      <img src="https://picsum.photos/seed/h1/400/300" alt="">
+      <img src="https://picsum.photos/seed/h2/400/300" alt="">
+      <img src="https://picsum.photos/seed/h3/400/300" alt="">
+    </div>
+  </template>
+
+  <template data-key="f1" data-idx="Interest 03" data-title="F1 Racing" data-zh="赛车">
+    <p>Engineering at 300 km/h. I follow the strategy as much as the racing — tyre windows, undercuts, the math of a perfectly timed pit stop. It's applied optimization with a soundtrack.</p>
+    <p>As someone who lives in models and constraints, I find race weekends oddly familiar: everyone solving the same problem, in real time, under uncertainty.</p>
+    <div class="meta"><span>Strategy nerd</span><span>Race weekends</span><span>Data &amp; tyres</span></div>
+    <div class="photostrip">
+      <img src="https://picsum.photos/seed/f1a/400/300" alt="">
+      <img src="https://picsum.photos/seed/f1b/400/300" alt="">
+      <img src="https://picsum.photos/seed/f1c/400/300" alt="">
+    </div>
+  </template>
+
+  <template data-key="travel" data-idx="Interest 04" data-title="Travel" data-zh="旅行">
+    <p>Collecting places, one camera roll at a time. Living between Kunshan and Durham keeps me in motion, and travel is where my photography, curiosity, and appetite all meet.</p>
+    <p>I prefer wandering to itineraries — getting a little lost in a new city is usually where the best frames and meals turn up.</p>
+    <div class="meta"><span>Slow travel</span><span>Getting lost</span><span>Camera always on</span></div>
+    <div class="photostrip">
+      <img src="https://picsum.photos/seed/t1/400/300" alt="">
+      <img src="https://picsum.photos/seed/t2/400/300" alt="">
+      <img src="https://picsum.photos/seed/t3/400/300" alt="">
+    </div>
+  </template>
+
+  <template data-key="food" data-idx="Interest 05" data-title="Food" data-zh="寻味">
+    <p>A city is fastest understood through its food. I chase the small, local, unglamorous-but-perfect places — the ones with no English menu and a line out front.</p>
+    <p>Cooking and eating are my favorite way to pay attention to somewhere new; taste is a kind of memory I trust.</p>
+    <div class="meta"><span>Local spots</span><span>Night markets</span><span>Will queue for it</span></div>
+    <div class="photostrip">
+      <img src="https://picsum.photos/seed/fd1/400/300" alt="">
+      <img src="https://picsum.photos/seed/fd2/400/300" alt="">
+      <img src="https://picsum.photos/seed/fd3/400/300" alt="">
+    </div>
+  </template>
+</div>
+
+<script>
+const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* scroll reveal */
+const io = new IntersectionObserver((es)=>{
+  es.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+}, {threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* photo tilt */
+if(!reduce){
+  document.querySelectorAll('.shot').forEach(card=>{
+    card.addEventListener('pointermove', e=>{
+      const r=card.getBoundingClientRect();
+      const px=(e.clientX-r.left)/r.width-.5, py=(e.clientY-r.top)/r.height-.5;
+      card.style.transform=`perspective(700px) rotateX(${-py*6}deg) rotateY(${px*6}deg)`;
+    });
+    card.addEventListener('pointerleave', ()=>{ card.style.transform=''; });
+  });
+}
+
+/* ---- silky cursor-follow preview (interests + publications) ---- */
+if(!reduce){
+  const peek = document.getElementById('peek');
+  const peekImg = peek.querySelector('img');
+  const peekCap = peek.querySelector('.cap');
+  let tx=-500, ty=-500, cx=-500, cy=-500;
+
+  (function loop(){
+    /* lerp toward the cursor → the silky trailing feel */
+    cx += (tx-cx)*0.12; cy += (ty-cy)*0.12;
+    peek.style.left = (cx+24)+'px';
+    peek.style.top  = (cy-90)+'px';
+    requestAnimationFrame(loop);
+  })();
+
+  document.querySelectorAll('[data-img]').forEach(el=>{
+    el.addEventListener('pointerenter', e=>{
+      peekImg.src = el.dataset.img;
+      peekCap.textContent = el.dataset.cap || '';
+      /* snap on entry so the card doesn't fly across the page */
+      tx=e.clientX; ty=e.clientY; cx=tx; cy=ty;
+      peek.classList.add('on');
+    });
+    el.addEventListener('pointermove', e=>{ tx=e.clientX; ty=e.clientY; }, {passive:true});
+    el.addEventListener('pointerleave', ()=>{ peek.classList.remove('on'); });
+  });
+}
+
+/* interest subpages */
+const overlay = document.getElementById('overlay');
+const ovEyebrow = document.getElementById('ov-eyebrow');
+const ovTitle = document.getElementById('ov-title');
+const ovZh = document.getElementById('ov-zh');
+const ovBody = document.getElementById('ov-body');
+let lastFocused = null;
+
+function openInterest(key){
+  const tpl = document.querySelector(`#int-data template[data-key="${key}"]`);
+  if(!tpl) return;
+  ovEyebrow.textContent = tpl.dataset.idx;
+  ovTitle.textContent = tpl.dataset.title;
+  ovZh.textContent = tpl.dataset.zh || '';
+  ovBody.innerHTML = '';
+  ovBody.appendChild(tpl.content.cloneNode(true));
+  overlay.classList.add('open');
+  overlay.setAttribute('aria-hidden','false');
+  document.body.style.overflow='hidden';
+  overlay.scrollTop = 0;
+  document.getElementById('backBtn').focus();
+  const pk = document.getElementById('peek'); if(pk) pk.classList.remove('on');
+}
+function closeInterest(){
+  overlay.classList.remove('open');
+  overlay.setAttribute('aria-hidden','true');
+  document.body.style.overflow='';
+  if(lastFocused) lastFocused.focus();
+}
+document.querySelectorAll('.int-btn').forEach(b=>{
+  b.addEventListener('click', ()=>{ lastFocused=b; openInterest(b.dataset.key); });
+});
+document.getElementById('backBtn').addEventListener('click', closeInterest);
+document.addEventListener('keydown', e=>{ if(e.key==='Escape' && overlay.classList.contains('open')) closeInterest(); });
+</script>
+</body>
+</html>
