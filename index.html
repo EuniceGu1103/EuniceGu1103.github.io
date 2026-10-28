@@ -3,13 +3,11 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Yunrong "Eunice" Gu 顾芸榕</title>
+<title>Yunrong "Eunice" Gu</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,400;9..144,0,500;9..144,0,600;9..144,1,400;9..144,1,500&family=Inter:wght@400;500;600&family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet">
-<!-- 汇文明朝体 Huiwen Mincho — served via chinese-fonts CDN -->
-<link rel="stylesheet" href="https://chinese-fonts-cdn.deno.dev/packages/hwmct/dist/汇文明朝体/result.css">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,400;9..144,0,500;9..144,0,600;9..144,1,400;9..144,1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
 /* ============================================================
@@ -26,8 +24,7 @@
   --glow:    rgba(166,87,46,.10);
 
   --serif:"Fraunces", Georgia, serif;
-  --sans:"Inter", system-ui, -apple-system, "PingFang SC", sans-serif;
-  --cn:"Huiwen-mincho","Noto Serif SC","Songti SC","SimSun",serif;
+  --sans:"Inter", system-ui, -apple-system, sans-serif;
   --ease:cubic-bezier(.22,.61,.36,1);
   --maxw:1080px;
 }
@@ -39,8 +36,6 @@ a{ color:inherit; text-decoration:none; }
 img{ display:block; max-width:100%; }
 .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 28px; }
 
-/* all Chinese text uses 汇文明朝体 */
-.zh, .cn, [lang="zh"]{ font-family:var(--cn); }
 
 .eyebrow{ font-size:12px; letter-spacing:.22em; text-transform:uppercase;
   color:var(--accent-2); font-weight:600; margin-bottom:18px;
@@ -63,7 +58,7 @@ h1,h2,h3{ font-family:var(--serif); font-weight:500; line-height:1.08; letter-sp
 #peek.on{ opacity:1; transform:scale(1) rotate(-2deg); }
 #peek img{ width:100%; height:100%; object-fit:cover; }
 #peek .cap{ position:absolute; left:0; right:0; bottom:0; padding:10px 12px 8px; color:#fff;
-  font-family:var(--cn); font-size:13px; letter-spacing:.14em;
+  font-size:13px; letter-spacing:.14em;
   background:linear-gradient(transparent, rgba(20,17,13,.72)); }
 @media (hover:none){ #peek{ display:none; } }
 
@@ -85,9 +80,13 @@ nav a:hover::after{ transform:scaleX(1); }
 
 /* 4. hero — text left, portrait right */
 .hero{ position:relative; z-index:1; padding:110px 0 90px; }
-.hero-grid{ display:grid; grid-template-columns:1.5fr 1fr; gap:60px; align-items:center; }
+.hero-grid{ display:grid; grid-template-columns:1.5fr 1fr; column-gap:60px; row-gap:0; align-items:center;
+  grid-template-areas:"name photo" "intro photo"; }
+.hero-name{ grid-area:name; align-self:end; }
+.hero-intro{ grid-area:intro; align-self:start; }
+.portrait{ grid-area:photo; }
 .hero .lead{ font-size:14px; color:var(--ink-soft); margin-bottom:26px; letter-spacing:.04em; }
-.hero h1{ font-size:clamp(44px,7vw,84px); letter-spacing:-.03em; }
+.hero h1{ font-size:clamp(30px,4.6vw,54px); letter-spacing:-.02em; white-space:nowrap; }
 .hero h1 em{ font-style:italic; color:var(--accent); font-weight:400; }
 .hero h1 .w{ display:inline-block; opacity:0; transform:translateY(28px); animation:rise .9s var(--ease) forwards; }
 @keyframes rise{ to{ opacity:1; transform:none; } }
@@ -110,13 +109,17 @@ nav a:hover::after{ transform:scaleX(1); }
 .portrait::after{ content:""; position:absolute; inset:14px -14px -14px 14px;
   border:1px solid var(--line); border-radius:18px; z-index:-1; }
 .portrait .tag{ position:absolute; left:18px; bottom:16px; z-index:2; color:#fff;
-  font-family:var(--cn); font-size:13px; letter-spacing:.22em;
+  font-size:13px; letter-spacing:.22em;
   text-shadow:0 1px 8px rgba(20,17,13,.6); pointer-events:none; }
 @media(max-width:820px){
-  .hero-grid{ grid-template-columns:1fr; gap:44px; }
-  .portrait{ max-width:340px; }
+  .hero{ padding:56px 0 50px; }
+  .hero-grid{ grid-template-columns:1fr; grid-template-areas:"name" "photo" "intro"; row-gap:34px; }
+  .hero h1{ font-size:clamp(26px,8vw,40px); text-align:center; }
+  .portrait{ width:100%; max-width:320px; justify-self:center; }
+  .hero .tagline{ margin-top:6px; }
+  .hero .cta-row{ justify-content:center; }
 }
-.hero .tagline{ font-family:var(--serif); font-style:italic; font-size:clamp(19px,2.6vw,27px);
+.hero .tagline{ font-size:16.5px; line-height:1.7;
   color:var(--ink-soft); margin-top:26px; max-width:640px; opacity:0; animation:rise .9s var(--ease) .6s forwards; }
 .hero .cta-row{ margin-top:40px; display:flex; gap:16px; flex-wrap:wrap; opacity:0; animation:rise .9s var(--ease) .78s forwards; }
 
@@ -125,6 +128,8 @@ nav a:hover::after{ transform:scaleX(1); }
   transition:transform .3s var(--ease), background .3s var(--ease), color .3s var(--ease); cursor:pointer; background:none; }
 .btn.primary{ background:var(--ink); color:var(--paper); }
 .btn.primary:hover{ background:var(--accent); border-color:var(--accent); transform:translateY(-2px); }
+.hero .tagline p{ margin-bottom:14px; }
+.hero .tagline strong{ color:var(--ink); font-weight:600; }
 .btn.ghost:hover{ background:var(--ink); color:var(--paper); transform:translateY(-2px); }
 
 /* 5. sections + reveal */
@@ -156,6 +161,7 @@ section{ position:relative; z-index:1; padding:90px 0; }
 @media(max-width:760px){ .domains{ grid-template-columns:1fr; } }
 
 /* 6b. publications */
+.pubs-head{ font-size:clamp(24px,3.4vw,32px); margin:64px 0 22px; }
 .pubs{ border-top:1px solid var(--line); }
 .pub{ display:grid; grid-template-columns:86px 1fr auto; gap:26px; align-items:baseline;
   padding:26px 10px; border-bottom:1px solid var(--line); position:relative;
@@ -189,24 +195,23 @@ section{ position:relative; z-index:1; padding:90px 0; }
 .shot figcaption{ position:absolute; left:0; right:0; bottom:0; padding:18px 16px 14px; color:#fff; font-size:13px;
   background:linear-gradient(transparent, rgba(20,17,13,.72)); opacity:0; transform:translateY(8px); transition:all .45s var(--ease); }
 .shot figcaption b{ font-family:var(--serif); font-weight:500; font-size:15px; display:block; }
-.shot figcaption .zh{ font-size:12px; letter-spacing:.2em; opacity:.85; }
+.shot figcaption span{ font-size:12px; letter-spacing:.2em; opacity:.85; }
 .shot:hover figcaption{ opacity:1; transform:none; }
 @media(max-width:760px){ .gallery{ grid-template-columns:1fr 1fr; grid-auto-rows:180px; } }
 
 /* 8. interests — buttons with cursor-follow preview + overlay subpage */
-.interests-grid{ display:grid; grid-template-columns:repeat(5,1fr); gap:14px; }
+.interests-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
 .int-btn{ text-align:left; background:var(--paper-2); border:1px solid var(--line); border-radius:16px;
   padding:26px 20px; cursor:pointer; font-family:inherit; color:inherit;
   transition:transform .4s var(--ease), box-shadow .4s var(--ease), border-color .4s var(--ease); }
 .int-btn:hover{ transform:translateY(-8px); box-shadow:0 22px 44px -20px rgba(35,32,27,.3); border-color:transparent; }
 .int-btn .idx{ font-family:var(--serif); font-size:13px; color:var(--accent-2); }
 .int-btn h3{ font-size:19px; margin:12px 0 2px; }
-.int-btn .zh{ display:block; font-family:var(--cn); font-size:13px; color:var(--ink-soft);
+.int-btn .zh{ display:block; font-size:13px; color:var(--ink-soft);
   letter-spacing:.24em; margin-bottom:8px; }
 .int-btn .go{ font-size:12px; color:var(--accent); opacity:0; transform:translateX(-6px); transition:all .4s var(--ease); }
 .int-btn:hover .go{ opacity:1; transform:none; }
-@media(max-width:900px){ .interests-grid{ grid-template-columns:1fr 1fr 1fr; } }
-@media(max-width:560px){ .interests-grid{ grid-template-columns:1fr 1fr; } }
+@media(max-width:760px){ .interests-grid{ grid-template-columns:1fr 1fr; } }
 
 /* 9. subpage overlay */
 .overlay{ position:fixed; inset:0; z-index:60; background:var(--paper);
@@ -219,7 +224,7 @@ section{ position:relative; z-index:1; padding:90px 0; }
   transition:all .3s var(--ease); margin-bottom:44px; }
 .back:hover{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
 .overlay h2{ font-size:clamp(38px,7vw,64px); margin:14px 0 6px; }
-.overlay .h2zh{ font-family:var(--cn); color:var(--ink-soft); letter-spacing:.3em; margin-bottom:26px; }
+.overlay .h2zh{ color:var(--ink-soft); letter-spacing:.3em; margin-bottom:26px; }
 .overlay .body{ font-size:18px; color:var(--ink-soft); }
 .overlay .body p{ margin-bottom:18px; }
 .overlay .body strong{ color:var(--ink); font-weight:600; }
@@ -236,6 +241,8 @@ section{ position:relative; z-index:1; padding:90px 0; }
 /* 12. contact / footer */
 .contact{ text-align:center; }
 .contact h2{ font-size:clamp(34px,6vw,60px); margin-bottom:22px; }
+.contact .one-line{ color:var(--ink-soft); white-space:nowrap; font-size:17px; }
+@media(max-width:640px){ .contact .one-line{ white-space:normal; font-size:15px; max-width:320px; margin:0 auto; } }
 .contact .links{ display:flex; justify-content:center; gap:14px; flex-wrap:wrap; margin-top:14px; }
 footer{ border-top:1px solid var(--line); padding:34px 0; text-align:center; color:var(--ink-soft); font-size:13px; }
 
@@ -255,11 +262,9 @@ footer{ border-top:1px solid var(--line); padding:34px 0; text-align:center; col
 
 <header>
   <nav class="wrap">
-    <span class="brand">Eunice Gu<span class="zh">顾芸榕</span></span>
+    <span class="brand">Eunice Gu</span>
     <ul>
-      <li><a href="#about">About</a></li>
       <li><a href="#research">Research</a></li>
-      <li><a href="#publications">Publications</a></li>
       <li><a href="#photos">Photography</a></li>
       <li><a href="#interests">Interests</a></li>
       <li><a href="#contact">Contact</a></li>
@@ -270,59 +275,42 @@ footer{ border-top:1px solid var(--line); padding:34px 0; text-align:center; col
 <!-- ================= Hero ================= -->
 <div class="hero wrap">
   <div class="hero-grid">
-    <div>
-      <p class="lead">Duke Kunshan University × Duke University · Class of 2027</p>
-      <h1>
-        <span class="w" style="animation-delay:.05s">Yunrong</span>
-        <em class="w" style="animation-delay:.18s">"Eunice"</em>
-        <span class="w" style="animation-delay:.3s">Gu</span>
-      </h1>
-      <p class="tagline">A mathematics undergraduate studying how a changing climate reshapes weather and human health — and photographing the light in between.</p>
-      <div class="cta-row">
-        <a class="btn primary" href="https://www.linkedin.com/in/yunrong-gu" target="_blank" rel="noopener">Connect on LinkedIn →</a>
-        <a class="btn ghost" href="#publications">Publications</a>
-      </div>
-    </div>
+    <h1 class="hero-name">
+      <span class="w" style="animation-delay:.05s">Yunrong</span>
+      <em class="w" style="animation-delay:.18s">"Eunice"</em>
+      <span class="w" style="animation-delay:.3s">Gu</span>
+    </h1>
 
     <!-- Portrait -->
     <div class="portrait">
       <div class="frame">
-        <img src="portrait.jpg" alt="Portrait of Yunrong Eunice Gu">
+        <img src="profile.jpg" alt="Portrait of Yunrong Eunice Gu">
+      </div>
+    </div>
+
+    <div class="hero-intro">
+      <div class="tagline">
+        <p>I'm <strong>Eunice</strong>, an undergraduate at Duke Kunshan University and Duke University (Class of 2027), majoring in <strong>Applied Mathematics and Computational Science</strong> on the mathematics track.</p>
+        <p>I work at the intersection of climate and health, using statistics and machine learning to understand how extreme weather affects people — especially children. Away from the data, I'm usually behind a camera; I served as <strong>Vice President of Pixel Poets</strong>, my university's photography club.</p>
+        <p>I'm drawn to problems that sit between disciplines: rigorous enough to model, human enough to matter.</p>
+      </div>
+      <div class="cta-row">
+        <a class="btn primary" href="https://www.linkedin.com/in/yunrong-gu" target="_blank" rel="noopener">Connect on LinkedIn →</a>
+        <a class="btn ghost" href="#research">Research</a>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ================= About ================= -->
-<section id="about">
-  <div class="wrap reveal">
-    <span class="eyebrow">About <span class="zh">关于</span></span>
-    <div class="about-grid">
-      <div>
-        <p>I'm <strong>Eunice</strong>, an undergraduate at Duke Kunshan University and Duke University (Class of 2027), majoring in <strong>Applied Mathematics and Computational Science</strong> on the mathematics track.</p>
-        <p>I work at the intersection of climate and health — using statistics and machine learning to understand how extreme weather affects people, especially children. When I'm not with data, I'm usually behind a camera; I served as <strong>Vice President of Pixel Poets</strong>, my university's photography club.</p>
-        <p>I like problems that sit between disciplines: rigorous enough to model, human enough to matter.</p>
-      </div>
-      <dl class="facts">
-        <dt>Now</dt><dd>DKU × Duke · Class of 2027</dd>
-        <dt>Major</dt><dd>Applied Mathematics (Math track)</dd>
-        <dt>Focus</dt><dd>Climate Science · Public Health</dd>
-        <dt>Based</dt><dd>Kunshan, China · Durham, NC</dd>
-        <dt>Languages</dt><dd>English · Mandarin · Spanish</dd>
-      </dl>
-    </div>
-  </div>
-</section>
-
 <!-- ================= Research ================= -->
 <section id="research">
   <div class="wrap reveal">
-    <span class="eyebrow">Research <span class="zh">研究</span></span>
+    <span class="eyebrow">Research</span>
     <h2 class="section-title">Two questions I keep returning to</h2>
     <div class="domains">
       <article class="domain">
         <span class="num">01</span>
-        <h3>Climate Science<span class="zh">气候科学</span></h3>
+        <h3>Climate Science</h3>
         <div class="sub">
           <h4>Climate modeling</h4>
           <p>Exploring the underlying principles and applied logic of numerical weather prediction (NWP) and climate-projection models — including work on Southern Hemisphere jet variability and eddy–mean flow interactions using ERA5 reanalysis.</p>
@@ -334,7 +322,7 @@ footer{ border-top:1px solid var(--line); padding:34px 0; text-align:center; col
       </article>
       <article class="domain">
         <span class="num">02</span>
-        <h3>Public Health<span class="zh">公共卫生</span></h3>
+        <h3>Public Health</h3>
         <div class="sub">
           <h4>Climate &amp; health</h4>
           <p>Investigating the health risks of climate variability in low- and middle-income countries, with a focus on the uneven burden it places on children — particularly respiratory and diarrheal disease.</p>
@@ -345,64 +333,33 @@ footer{ border-top:1px solid var(--line); padding:34px 0; text-align:center; col
         </div>
       </article>
     </div>
-  </div>
-</section>
 
-<!-- ================= Publications (reserved) ================= -->
-<section id="publications">
-  <div class="wrap reveal">
-    <span class="eyebrow">Publications <span class="zh">论文</span></span>
-    <h2 class="section-title">Selected work<span class="zh">部分研究成果</span></h2>
-
-    <!-- To add a paper: copy one .pub block, fill in year/title/venue/tags/links.
-         data-img (optional) = thumbnail for the cursor-follow preview. -->
+    <h3 class="pubs-head" id="publications">Publications</h3>
     <div class="pubs">
-      <article class="pub" data-img="https://picsum.photos/seed/pub1/460/340" data-cap="Working paper · 2026">
-        <span class="year">2026</span>
-        <div>
-          <h3>Eddy–mean flow interactions and Southern Hemisphere jet variability in ERA5 reanalysis</h3>
-          <p class="venue">Working paper · <i>Climate Dynamics group, Duke Kunshan University</i></p>
-          <div class="tags"><span>ERA5</span><span>Jet variability</span><span>Atmospheric dynamics</span></div>
-        </div>
-        <div class="links"><a href="#" target="_blank" rel="noopener">PDF</a><a href="#" target="_blank" rel="noopener">Poster</a></div>
-      </article>
-
-      <article class="pub" data-img="https://picsum.photos/seed/pub2/460/340" data-cap="In preparation · 2026">
-        <span class="year">2026</span>
-        <div>
-          <h3>Nonlinear climate–disease relationships in children across low- and middle-income countries</h3>
-          <p class="venue">In preparation · <i>DHS × ERA5 statistical modeling</i></p>
-          <div class="tags"><span>Machine learning</span><span>Child health</span><span>DHS surveys</span></div>
-        </div>
-        <div class="links"><a href="#" target="_blank" rel="noopener">Abstract</a></div>
-      </article>
-
       <article class="pub soon">
         <span class="year">Soon</span>
         <div>
-          <h3>More on the way — this shelf is reserved.</h3>
-          <p class="venue zh">虚位以待</p>
+          <h3>On the way.</h3>
         </div>
         <div class="links"></div>
       </article>
     </div>
-    <p class="pubs-note">Full list available on request · <span class="zh">完整列表可来信索取</span></p>
   </div>
 </section>
 
 <!-- ================= Photography ================= -->
 <section id="photos">
   <div class="wrap reveal">
-    <span class="eyebrow">Photography <span class="zh">摄影</span></span>
-    <h2 class="section-title">Collecting light<span class="zh">拾光</span></h2>
+    <span class="eyebrow">Photography</span>
+    <h2 class="section-title">Collecting light</h2>
     <!-- Replace src with your own photos. Add class="tall" to span two rows -->
     <div class="gallery">
-      <figure class="shot tall"><img src="https://picsum.photos/seed/e1/700/900" alt="Photo"><figcaption><b>Morning fog</b><span class="zh">昆山 · 2024</span></figcaption></figure>
-      <figure class="shot"><img src="https://picsum.photos/seed/e2/700/500" alt="Photo"><figcaption><b>Corner light</b><span class="zh">Durham · 2025</span></figcaption></figure>
-      <figure class="shot"><img src="https://picsum.photos/seed/e3/700/500" alt="Photo"><figcaption><b>Untitled</b><span class="zh">上海 · 2024</span></figcaption></figure>
-      <figure class="shot"><img src="https://picsum.photos/seed/e4/700/500" alt="Photo"><figcaption><b>Coastline</b><span class="zh">青岛 · 2023</span></figcaption></figure>
-      <figure class="shot tall"><img src="https://picsum.photos/seed/e5/700/900" alt="Photo"><figcaption><b>Rain</b><span class="zh">苏州 · 2024</span></figcaption></figure>
-      <figure class="shot"><img src="https://picsum.photos/seed/e6/700/500" alt="Photo"><figcaption><b>On film</b><span class="zh">胶片 · 2023</span></figcaption></figure>
+      <figure class="shot tall"><img src="https://picsum.photos/seed/e1/700/900" alt="Photo"><figcaption><b>Morning fog</b><span>Kunshan · 2024</span></figcaption></figure>
+      <figure class="shot"><img src="https://picsum.photos/seed/e2/700/500" alt="Photo"><figcaption><b>Corner light</b><span>Durham · 2025</span></figcaption></figure>
+      <figure class="shot"><img src="https://picsum.photos/seed/e3/700/500" alt="Photo"><figcaption><b>Untitled</b><span>Shanghai · 2024</span></figcaption></figure>
+      <figure class="shot"><img src="https://picsum.photos/seed/e4/700/500" alt="Photo"><figcaption><b>Coastline</b><span>Qingdao · 2023</span></figcaption></figure>
+      <figure class="shot tall"><img src="https://picsum.photos/seed/e5/700/900" alt="Photo"><figcaption><b>Rain</b><span>Suzhou · 2024</span></figcaption></figure>
+      <figure class="shot"><img src="https://picsum.photos/seed/e6/700/500" alt="Photo"><figcaption><b>On film</b><span>Film · 2023</span></figcaption></figure>
     </div>
   </div>
 </section>
@@ -410,14 +367,13 @@ footer{ border-top:1px solid var(--line); padding:34px 0; text-align:center; col
 <!-- ================= Interests (hover to preview, click to open subpage) ================= -->
 <section id="interests">
   <div class="wrap reveal">
-    <span class="eyebrow">Beyond work <span class="zh">工作之外</span></span>
+    <span class="eyebrow">Beyond work</span>
     <h2 class="section-title">Things that keep me curious</h2>
     <div class="interests-grid">
-      <button class="int-btn" data-key="photography" data-img="https://picsum.photos/seed/p1/460/340" data-cap="摄影"><span class="idx">01</span><h3>Photography</h3><span class="zh">摄影</span><span class="go">Open →</span></button>
-      <button class="int-btn" data-key="hiking" data-img="https://picsum.photos/seed/h1/460/340" data-cap="徒步"><span class="idx">02</span><h3>Hiking</h3><span class="zh">徒步</span><span class="go">Open →</span></button>
-      <button class="int-btn" data-key="f1" data-img="https://picsum.photos/seed/f1a/460/340" data-cap="赛车"><span class="idx">03</span><h3>F1 Racing</h3><span class="zh">赛车</span><span class="go">Open →</span></button>
-      <button class="int-btn" data-key="travel" data-img="https://picsum.photos/seed/t1/460/340" data-cap="旅行"><span class="idx">04</span><h3>Travel</h3><span class="zh">旅行</span><span class="go">Open →</span></button>
-      <button class="int-btn" data-key="food" data-img="https://picsum.photos/seed/fd1/460/340" data-cap="寻味"><span class="idx">05</span><h3>Food</h3><span class="zh">寻味</span><span class="go">Open →</span></button>
+      <button class="int-btn" data-key="hiking" data-img="https://picsum.photos/seed/h1/460/340" data-cap="Hiking"><span class="idx">01</span><h3>Hiking</h3><span class="go">Open →</span></button>
+      <button class="int-btn" data-key="f1" data-img="https://picsum.photos/seed/f1a/460/340" data-cap="F1 Racing"><span class="idx">02</span><h3>F1 Racing</h3><span class="go">Open →</span></button>
+      <button class="int-btn" data-key="travel" data-img="https://picsum.photos/seed/t1/460/340" data-cap="Travel"><span class="idx">03</span><h3>Travel</h3><span class="go">Open →</span></button>
+      <button class="int-btn" data-key="food" data-img="https://picsum.photos/seed/fd1/460/340" data-cap="Food"><span class="idx">04</span><h3>Food</h3><span class="go">Open →</span></button>
     </div>
   </div>
 </section>
@@ -425,9 +381,9 @@ footer{ border-top:1px solid var(--line); padding:34px 0; text-align:center; col
 <!-- ================= Contact ================= -->
 <section id="contact">
   <div class="wrap reveal contact">
-    <span class="eyebrow" style="justify-content:center">Contact <span class="zh">联系</span></span>
-    <h2>Let's talk</h2>
-    <p style="color:var(--ink-soft);max-width:520px;margin:0 auto;">Research, collaboration, or just photography — I'd love to hear from you.</p>
+    <span class="eyebrow" style="justify-content:center">Contact</span>
+    <h2>Let's connect</h2>
+    <p class="one-line">Research, collaboration, or just photography — I'd love to hear from you.</p>
     <div class="links">
       <a class="btn primary" href="https://www.linkedin.com/in/yunrong-gu" target="_blank" rel="noopener">LinkedIn</a>
       <a class="btn ghost" href="mailto:yunrong.gu@duke.edu">Academic email</a>
@@ -437,7 +393,7 @@ footer{ border-top:1px solid var(--line); padding:34px 0; text-align:center; col
 </section>
 
 <footer>
-  <div class="wrap">© 2026 Yunrong "Eunice" Gu · <span class="zh">顾芸榕</span></div>
+  <div class="wrap">© 2026 Yunrong "Eunice" Gu</div>
 </footer>
 
 <!-- ================= Interest subpage overlay ================= -->
@@ -446,7 +402,6 @@ footer{ border-top:1px solid var(--line); padding:34px 0; text-align:center; col
     <button class="back" id="backBtn">← Back</button>
     <span class="eyebrow" id="ov-eyebrow">Interest</span>
     <h2 id="ov-title"></h2>
-    <div class="h2zh" id="ov-zh"></div>
     <div class="body" id="ov-body"></div>
   </div>
 </div>
@@ -456,21 +411,9 @@ footer{ border-top:1px solid var(--line); padding:34px 0; text-align:center; col
      Each block: title, index label, Chinese label, HTML body, photos.
      ============================================================ -->
 <div id="int-data">
-  <template data-key="photography" data-idx="Interest 01" data-title="Photography" data-zh="摄影">
-    <p>Where I learned to pay attention. As <strong>Vice President of Pixel Poets</strong>, my university's photography club, I organized workshops and exhibitions and helped build a small community around looking closely.</p>
-    <p>I mostly shoot <strong>street and film</strong>. I'm drawn to the frames where light does something the eye almost missed — a reflection, a shadow at the wrong angle, a stranger caught mid-thought.</p>
-    <div class="meta"><span>Street</span><span>Film</span><span>Workshops &amp; exhibitions</span></div>
-    <div class="photostrip">
-      <img src="https://picsum.photos/seed/p1/400/300" alt="">
-      <img src="https://picsum.photos/seed/p2/400/300" alt="">
-      <img src="https://picsum.photos/seed/p3/400/300" alt="">
-    </div>
-  </template>
-
-  <template data-key="hiking" data-idx="Interest 02" data-title="Outdoor Hiking" data-zh="徒步">
-    <p>Trading equations for elevation. Long trails are how I reset — the landscapes I study as climate data feel very different under my own feet.</p>
-    <p>There's something clarifying about a full day of walking: no notifications, one direction, and weather you experience instead of model.</p>
-    <div class="meta"><span>Day hikes</span><span>Trail running</span><span>Mountains &gt; cities</span></div>
+  <template data-key="hiking" data-idx="Interest 01" data-title="Hiking">
+    <p>Trading equations for elevation. Long trails are how I reset — and the landscapes I study as climate data feel very different under my own feet.</p>
+    <p>So far I've hiked in <strong>Rocky Mountain National Park</strong> in Colorado, <strong>Yosemite National Park</strong> in California, and along Hong Kong's <strong>MacLehose Trail</strong>. Next on my list: multi-day routes, backpacking with a full pack, and my first steps into snow-mountain climbing.</p>
     <div class="photostrip">
       <img src="https://picsum.photos/seed/h1/400/300" alt="">
       <img src="https://picsum.photos/seed/h2/400/300" alt="">
@@ -478,10 +421,9 @@ footer{ border-top:1px solid var(--line); padding:34px 0; text-align:center; col
     </div>
   </template>
 
-  <template data-key="f1" data-idx="Interest 03" data-title="F1 Racing" data-zh="赛车">
+  <template data-key="f1" data-idx="Interest 02" data-title="F1 Racing">
     <p>Engineering at 300 km/h. I follow the strategy as much as the racing — tyre windows, undercuts, the math of a perfectly timed pit stop. It's applied optimization with a soundtrack.</p>
-    <p>As someone who lives in models and constraints, I find race weekends oddly familiar: everyone solving the same problem, in real time, under uncertainty.</p>
-    <div class="meta"><span>Strategy nerd</span><span>Race weekends</span><span>Data &amp; tyres</span></div>
+    <p>My favourite driver is <strong>Lewis Hamilton</strong> of Scuderia Ferrari. Our slogan: <strong><em>Still We Rise.</em></strong></p>
     <div class="photostrip">
       <img src="https://picsum.photos/seed/f1a/400/300" alt="">
       <img src="https://picsum.photos/seed/f1b/400/300" alt="">
@@ -489,10 +431,9 @@ footer{ border-top:1px solid var(--line); padding:34px 0; text-align:center; col
     </div>
   </template>
 
-  <template data-key="travel" data-idx="Interest 04" data-title="Travel" data-zh="旅行">
-    <p>Collecting places, one camera roll at a time. Living between Kunshan and Durham keeps me in motion, and travel is where my photography, curiosity, and appetite all meet.</p>
-    <p>I prefer wandering to itineraries — getting a little lost in a new city is usually where the best frames and meals turn up.</p>
-    <div class="meta"><span>Slow travel</span><span>Getting lost</span><span>Camera always on</span></div>
+  <template data-key="travel" data-idx="Interest 03" data-title="Travel">
+    <p>I love every kind of travel — trips with friends and solo adventures alike — and <strong>backpacking</strong> and <strong>road trips</strong> are my favourite ways to see the world. I'm just as happy standing in front of a sweeping natural landscape as I am wandering a city's streets, soaking in its culture and history.</p>
+    <p>As a true ENFP, I live for the side quests: the unplanned detours, the new friends made along the way, and the chance to experience customs and ways of life different from my own.</p>
     <div class="photostrip">
       <img src="https://picsum.photos/seed/t1/400/300" alt="">
       <img src="https://picsum.photos/seed/t2/400/300" alt="">
@@ -500,10 +441,10 @@ footer{ border-top:1px solid var(--line); padding:34px 0; text-align:center; col
     </div>
   </template>
 
-  <template data-key="food" data-idx="Interest 05" data-title="Food" data-zh="寻味">
-    <p>A city is fastest understood through its food. I chase the small, local, unglamorous-but-perfect places — the ones with no English menu and a line out front.</p>
-    <p>Cooking and eating are my favorite way to pay attention to somewhere new; taste is a kind of memory I trust.</p>
-    <div class="meta"><span>Local spots</span><span>Night markets</span><span>Will queue for it</span></div>
+  <template data-key="food" data-idx="Interest 04" data-title="Food">
+    <p>I love exploring cuisines from all over the world. Wherever I go, I seek out everything from famous restaurants to random diners — and the occasional good bar.</p>
+    <p>I share photos of what I eat, along with my honest reviews, on the Chinese social platform <strong>Rednote</strong> — <a href="https://xhslink.cn/o/8LrzP4u9Y0V" target="_blank" rel="noopener" style="color:var(--accent);border-bottom:1px solid var(--accent);">come find me there →</a></p>
+    <p>I'll admit I'm not much of a cook yet, but I'm working on it — learning to make more of the dishes I love is next on the menu.</p>
     <div class="photostrip">
       <img src="https://picsum.photos/seed/fd1/400/300" alt="">
       <img src="https://picsum.photos/seed/fd2/400/300" alt="">
@@ -533,7 +474,7 @@ if(!reduce){
   });
 }
 
-/* ---- silky cursor-follow preview (interests + publications) ---- */
+/* ---- silky cursor-follow preview (interests) ---- */
 if(!reduce){
   const peek = document.getElementById('peek');
   const peekImg = peek.querySelector('img');
@@ -565,7 +506,6 @@ if(!reduce){
 const overlay = document.getElementById('overlay');
 const ovEyebrow = document.getElementById('ov-eyebrow');
 const ovTitle = document.getElementById('ov-title');
-const ovZh = document.getElementById('ov-zh');
 const ovBody = document.getElementById('ov-body');
 let lastFocused = null;
 
@@ -574,7 +514,6 @@ function openInterest(key){
   if(!tpl) return;
   ovEyebrow.textContent = tpl.dataset.idx;
   ovTitle.textContent = tpl.dataset.title;
-  ovZh.textContent = tpl.dataset.zh || '';
   ovBody.innerHTML = '';
   ovBody.appendChild(tpl.content.cloneNode(true));
   overlay.classList.add('open');
